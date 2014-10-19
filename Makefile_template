@@ -1,0 +1,29 @@
+SBU_TO_TIME = sbu2time
+TIME_TO_SBU = time2sbu
+SBU_ENV = SBU
+
+ifeq ($(link), soft)
+	FILE_LINK_FLAGS = -fs
+else
+	FILE_LINK_FLAGS = -f
+endif
+    
+
+CFLAGS = -Wall -DSBU_TO_TIME=\"$(SBU_TO_TIME)\" -DTIME_TO_SBU=\"$(TIME_TO_SBU)\" \
+     -DSBU_ENV=\"$(SBU_ENV)\"
+
+ifeq ($(DEBUG), TRUE)
+	CFLAGS += -g -DDEBUG
+endif
+
+.PHONY : all clean 
+
+all : $(SBU_TO_TIME)
+
+$(SBU_TO_TIME) : $(SBU_TO_TIME).c
+	$(CC) $(CFLAGS) $(MORE_FLAGS) $(SBU_TO_TIME).c -o $(SBU_TO_TIME)
+	ln $(FILE_LINK_FLAGS) $(SBU_TO_TIME) $(TIME_TO_SBU)
+
+clean :
+	rm -f $(SBU_TO_TIME) $(TIME_TO_SBU)
+

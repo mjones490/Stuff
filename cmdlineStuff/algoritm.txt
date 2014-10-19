@@ -1,0 +1,32 @@
+parse() gets the list of parameter data from user.
+It allocates the working structure, sets a pointer in the structure 
+to the parameter data, initializes a linked list, and fills the list 
+with all argv argcs passed to it.  It sets current in the structure to the
+first list item.  Then calls scan_params.
+
+scan_params() walks the list:  
+    If current starts with '-':
+        If second char of current is '-':
+            Split the param by = if possible, and send both sides, or
+            side one and NULL, allong with working structure, to 
+            param_set().
+        Else:
+            Loop over each char in param, sending char (as string), NULL
+            (in place of value), and working structure to param_set().
+        Call remove_param() to remove current from list.
+    Else:
+        Set current to current->next, skipping this param.
+
+param_set() walks the parameter data looking for a matching name:
+    If a match is found:
+        If match is a bool (like -v):
+            Set the param_value to !default.  Return.
+        Else:
+            param_set() needs a value.  If value is NULL:
+                Sets the param value to current->next.
+                Call remove_param() to remove current->next from the list.
+            Else:
+                Use value as param_value.
+        
+remove_param() saves the next pointer of the param to be removed, copies
+the p
