@@ -33,7 +33,7 @@ void list_params(struct param_parse_struct *param_parse);
     LONG_NAME, \
     SHORT_NAME, \
     TYPE, \
-    (void *) VAR_ADDRESS, \
+    (void **) VAR_ADDRESS, \
     (void *) DEFAULT, \
     DESC \
 },
