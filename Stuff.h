@@ -6,5 +6,6 @@
 #include "timeStuff/timeStuff.h"
 #include "cmdlineStuff/cmdlineStuff.h"
 #include "cacheStuff/cacheStuff.h"
+#include "configStuff/configStuff.h"
 //#include "globalStuff.h"
 #endif

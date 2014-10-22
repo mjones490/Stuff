@@ -13,7 +13,7 @@
 
 #include "macroStuff.h"
 #include "listStuff.h"
-#include "configStructs.h"
+#include "configStuff.h"
 
 #define MAX_REC_SIZE        81
 #define MAX_PARSED_FIELDS   8
@@ -24,11 +24,9 @@
 struct key_struct *create_key(struct key_struct *prev_key, 
     char *name, char *value);
 void destroy_key(struct key_struct *key);
-struct key_struct *find_key(struct key_struct *start, char *name);
 struct section_struct *create_section(struct section_struct *prev_section, 
     char *name);
 void destroy_section(struct section_struct *section);
-struct section_struct *find_section(struct section_struct *start, char *name);
 
 
 struct key_struct *create_key(struct key_struct *prev_key, 
@@ -196,8 +194,8 @@ short parse_record(char *record, char **field_buffer, char *parsed_field[])
     for (i = 0; i < NR_PATTERNS; ++i) {
         if (0 == regexec(&expression[i], record, expression[i].re_nsub + 1,
             match, 0)) {
-            printf("%s matches pattern %s\n", record, 
-                re_pattern[i].pattern_string);
+    //        printf("%s matches pattern %s\n", record, 
+      //          re_pattern[i].pattern_string);
             break;
         }
     }
@@ -331,6 +329,10 @@ struct config_struct *config_open(const char *pathname)
     find_section_test(config, "SECTION_TWO");
     find_section_test(config, "goober");
     find_key_test(config, "LAST_LINE");
+
+    printf("\n\nValue test...\n");
+    config->section = find_section(config->section, "jack");
+    printf("Hank = %s\n", find_key_string(config, "hank"));
 #endif
 
 out:

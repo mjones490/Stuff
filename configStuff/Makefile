@@ -7,7 +7,7 @@ INCLUDE_DIRS := listStuff mathStuff timeStuff
 TEST_MODULE := configTest
 TEST_OBJS := $(TEST_MODULE:%=%.o) $(LIB_OBJS)
 
-CFLAGS=-Wall -g -I.. $(INCLUDE_DIRS:%=-I../%) -DDEBUG_OUT
+CFLAGS=-Wall -g -I.. $(INCLUDE_DIRS:%=-I../%) 
 
 all : $(TEST_MODULE)
 
