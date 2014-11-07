@@ -6,6 +6,9 @@ TEST_MODULE :=
 TEST_OBJS := $(TEST_MODULE:%=%.o) $(LIB_OBJS)
 
 CFLAGS=-Wall
+#ifeq ($(NO_MATH),TRUE)
+#    CFLAGS+=-DNO_MATH
+#endif
 
 all : $(TEST_MODULE)
 

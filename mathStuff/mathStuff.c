@@ -45,4 +45,3 @@ int fibonacci(int f)
 
     return value;
 }
-

@@ -1,4 +1,4 @@
-MODULES = mathStuff timeStuff cmdlineStuff configStuff cacheStuff
+MODULES = timeStuff cmdlineStuff configStuff cacheStuff
 LIB_OBJS = 
 
 CLEAN_MODULES = $(MODULES) listStuff
