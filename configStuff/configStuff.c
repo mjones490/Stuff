@@ -344,10 +344,8 @@ void config_close(struct config_struct *config)
     struct list_head *current, *next;
     struct section_struct *section;
 
-    printf("Freeing string: %s\n", config->pathname);
     free(config->pathname);
     
-    printf("\n");
     LIST_FOR_EACH_SAFE(current, next, &config->section->list) {
         section = GET_ELEMENT(struct section_struct, list, current);
         destroy_section(section);
