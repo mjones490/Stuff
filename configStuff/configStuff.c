@@ -341,6 +341,7 @@ out:
 
 void config_close(struct config_struct *config) 
 {
+    int i;
     struct list_head *current, *next;
     struct section_struct *section;
 
@@ -352,6 +353,9 @@ void config_close(struct config_struct *config)
     }
     
     destroy_section(config->section);
+
+    for (i = 0; i < NR_PATTERNS; ++i)
+        regfree(&expression[i]);
 
     free(config);
 }
