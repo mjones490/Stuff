@@ -38,14 +38,21 @@ This object contains all the information about the cache itself.
 
 ```struct cache *cache_create(size_t obj_size);```
 
-Allocate and return a new `struct cache` object.  The new cache will be configured
+Initialize and return a new `struct cache` object.  The new cache will be configured
 to hold objects of `obj_size`.
 
 ```void *cache_get_object(struct cache *cache);```
 
-Return a pointer to a free slot in `cache` large enough to hold one object of size
+Allocate a pointer to a free slot in `cache` large enough to hold one object of size
 `obj_size`.
 
+```void cache_put_object(void *obj);```
+
+Put `obj` back into free list.
+
+```void cache_destroy(struct cache *cache);```
+
+Free all `cache` structures and clean up.
 
 
 
