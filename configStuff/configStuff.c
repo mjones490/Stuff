@@ -164,8 +164,7 @@ struct re_pattern_struct {
 
 struct re_pattern_struct re_pattern[] = {
     {LINETYPE_EMPTY,    "^[ \t]*#.*\n"},
-    {LINETYPE_KEY,      "^[ \t]*\\(.*\\)=\\(.*\\)#+.*\n$"},
-    {LINETYPE_KEY,      "^[ \t]*\\(.*\\)=\\(.*\\)\n$"},
+    {LINETYPE_KEY,      "^[ \t]*\\(.*\\)=\\(.*\\) *\n$"},
     {LINETYPE_SECTION,  "\\[\\(.*\\)\\]\n"}
 };
 
@@ -190,12 +189,23 @@ short parse_record(char *record, char **field_buffer, char *parsed_field[])
         *field_buffer = 0;
     }
 
+    // Remove comment field (#...)
+    buf_end = record;
+    do {
+        if (*buf_end == '#') {
+            *buf_end = '\n';
+            *(buf_end + 1) = 0;
+            break;
+        }
+        buf_end++;
+    } while (*buf_end);
+
     // Look for a match    
     for (i = 0; i < NR_PATTERNS; ++i) {
         if (0 == regexec(&expression[i], record, expression[i].re_nsub + 1,
             match, 0)) {
-    //        printf("%s matches pattern %s\n", record, 
-      //          re_pattern[i].pattern_string);
+//            printf("%s matches pattern %s\n", record, 
+  //              re_pattern[i].pattern_string);
             break;
         }
     }

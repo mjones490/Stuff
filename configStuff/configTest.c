@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "listStuff.h"
 #include "configStuff.h"
 
 int main(int argv, char **argc)
